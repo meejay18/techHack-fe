@@ -120,7 +120,7 @@
 
 // export default Register;
 
-import React, { useState } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 import { createAccount } from "../../API/userApi";
@@ -152,7 +152,7 @@ const Register = () => {
         <div className="w-[90%] h-[95%] sm:w-[30%] sm:h-[75%]  bg-[white] rounded-md justify-center  flex-col flex items-center ">
           <form
             onSubmit={handleSubmit}
-            className="w-[90%] h-[80%] flex flex-col justify-center items-center gap-[20px] bg-[white] text-center"
+            className="w-[90%] h-[80%] flex flex-col justify-center items-center gap-[20px] bg-[white] text-center "
           >
             <div className="text-[13px] font-medium">
               SIGN UP TO YOUR ACCOUNT
