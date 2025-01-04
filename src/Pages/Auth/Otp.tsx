@@ -4,9 +4,9 @@ import { useState } from "react";
 import { verifyUser } from "../../API/userApi";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
-const navigate = useNavigate();
 
 const Otp = () => {
+  const navigate = useNavigate();
   const [otp, setOtp] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -35,7 +35,7 @@ const Otp = () => {
               <div>
                 <input
                   placeholder="OTP"
-                  className="border w-[90%] h-[35px] mt-5 outline-none bg-gray-100"
+                  className="border w-[90%] h-[35px] p-2 mt-5 outline-none bg-gray-100"
                   type="text"
                   value={otp}
                   onChange={(e) => setOtp(e.target.value)}
@@ -44,10 +44,15 @@ const Otp = () => {
               <div>
                 <button
                   disabled={loading}
-                  className="border rounded-md w-[90%] h-[35px] mt-3 bg-green-400 text-[13px]  text-white"
-                  onSubmit={handleSubmit}
+                  type="submit"
+                  className={`${
+                    loading
+                      ? "bg-green-700 cursor-not-allowed animate-pulse text-white border rounded-md px-[120px] py-[4px] "
+                      : "border rounded-md w-[95%]  justify-center h-[35px] sm:p-[10px] flex items-center mt-3 bg-green-400 text-[15px] font-bold  text-white"
+                  }`}
+                  onClick={handleSubmit}
                 >
-                  {loading ? `Loading` : `Verify`}
+                  {loading ? `Verifying` : `Verify`}
                 </button>
               </div>
             </div>

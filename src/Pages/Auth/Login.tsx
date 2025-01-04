@@ -3,12 +3,15 @@ import { useState } from "react";
 import { logInUser } from "../../API/userApi";
 import { useNavigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 const Login = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
+  const [showPassword, setShowPassword] = useState<boolean>(false);
+  const togglePassword = () => setShowPassword(!showPassword);
   // const [showPassword, setShowPassword] = useState<boolean>(false);
   // const togglePassword = () => setShowPassword(!showPassword);
 
@@ -18,7 +21,7 @@ const Login = () => {
 
     logInUser({ email, password }).then((res) => {
       if (res.status === 201) {
-        navigate("/auth/login");
+        navigate("/au");
       } else {
         toast.error("Error");
       }
@@ -39,13 +42,21 @@ const Login = () => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
-              <input
-                placeholder="password"
-                className="border w-[90%] p-2 h-[35px] rounded-[10px] text-[15px] sm:text-[15px] mt-5 outline-none bg-gray-100"
-                type="text"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
+              <div className="relative">
+                <input
+                  placeholder="password"
+                  className="border w-[90%] p-2 h-[35px] rounded-[10px] text-[15px] sm:text-[15px] mt-5 outline-none bg-gray-100"
+                  type={showPassword ? `text` : `password`}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+                <span
+                  className="relative bottom-6 left-[300px]"
+                  onClick={togglePassword}
+                >
+                  {showPassword ? <FaEye /> : <FaEyeSlash />}
+                </span>
+              </div>
             </div>
             <button
               disabled={loading}

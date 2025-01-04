@@ -120,10 +120,12 @@
 
 // export default Register;
 
+// import React from "react";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 import { createAccount } from "../../API/userApi";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -131,8 +133,8 @@ const Register = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
-  // const [showPassword, setShowPassword] = useState<boolean>(false);
-  // const togglePassword = () => setShowPassword(!showPassword);
+  const [showPassword, setShowPassword] = useState<boolean>(false);
+  const togglePassword = () => setShowPassword(!showPassword);
 
   const handleSubmit = (e: any) => {
     setLoading(true);
@@ -171,13 +173,21 @@ const Register = () => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
-              <input
-                placeholder="Password"
-                className="border w-[90%]  h-[35px] rounded-[10px] text-[15px] sm:text-[15px]  mt-5 outline-none p-2 bg-gray-100"
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
+              <div className="relative">
+                <input
+                  placeholder="Password"
+                  className="border w-[90%]  h-[35px] rounded-[10px] text-[15px] sm:text-[15px]  mt-5 outline-none p-2 bg-gray-100"
+                  type={showPassword ? `text` : `password`}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+                <span
+                  className="absolute right-5 top-7"
+                  onClick={togglePassword}
+                >
+                  {showPassword ? <FaEye /> : <FaEyeSlash />}
+                </span>
+              </div>
             </div>
             <button
               disabled={loading}
