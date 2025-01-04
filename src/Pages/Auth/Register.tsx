@@ -131,6 +131,8 @@ const Register = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
+  // const [showPassword, setShowPassword] = useState<boolean>(false);
+  // const togglePassword = () => setShowPassword(!showPassword);
 
   const handleSubmit = (e: any) => {
     setLoading(true);
@@ -148,33 +150,30 @@ const Register = () => {
     <div>
       <Toaster />
       <div className="w-full h-screen   bg-[#011B33] justify-center flex flex-col  gap-3 items-center">
-        <div></div>
-        <div className="w-[90%] h-[95%] sm:w-[30%] sm:h-[75%]  bg-[white] rounded-md justify-center  flex-col flex items-center ">
+        <div className="w-[90%] h-[60%] sm:w-[30%] sm:h-[75%]  bg-[white] rounded-md justify-center  flex-col flex items-center ">
           <form
             onSubmit={handleSubmit}
             className="w-[90%] h-[80%] flex flex-col justify-center items-center gap-[20px] bg-[white] text-center "
           >
-            <div className="text-[13px] font-medium">
-              SIGN UP TO YOUR ACCOUNT
-            </div>
+            <div className="text-[20px] font-bold">SIGN UP TO YOUR ACCOUNT</div>
             <div>
               <input
-                placeholder="Name"
-                className="border w-[90%] h-[35px] mt-5 outline-none bg-gray-100"
+                placeholder="name"
+                className="border w-[90%] h-[35px] mt-5  rounded-[10px] text-[15px] sm:text-[15px]   p-2 outline-none bg-gray-100"
                 type="name"
                 value={name}
                 onChange={(e) => setname(e.target.value)}
               />
               <input
-                placeholder="Email Address"
-                className="border w-[90%] h-[35px] mt-5 outline-none bg-gray-100"
+                className="border w-[90%] h-[35px] rounded-[10px] text-[15px] sm:text-[15px]  md:text-15px mt-5  p-2 outline-none bg-gray-100"
                 type="email"
+                placeholder="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
               <input
                 placeholder="Password"
-                className="border w-[90%]  h-[35px] mt-5 outline-none bg-gray-100"
+                className="border w-[90%]  h-[35px] rounded-[10px] text-[15px] sm:text-[15px]  mt-5 outline-none p-2 bg-gray-100"
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
@@ -186,21 +185,26 @@ const Register = () => {
               className={`${
                 loading
                   ? "bg-green-700 cursor-not-allowed animate-pulse text-white border rounded-md px-[120px] py-[4px] "
-                  : "border rounded-md w-[95%]  text-center h-[35px] mt-3 bg-green-400 text-[13px]  text-white"
+                  : "border rounded-md w-[95%]  justify-center h-[35px] sm:p-[10px] flex items-center mt-3 bg-green-400 text-[15px] font-bold  text-white"
               }`}
               onClick={handleSubmit}
             >
               {loading ? `loading` : `Sign Up`}
             </button>
-          </form>
-          <div>
-            <p className="text-[13px] text-[blue]">
-              Already have an account?
-              <Link className="underline" to={"/auth/login"}>
+            <div className="flex items-center gap-2">
+              <p className="text-[15px] text-[black]">
+                {" "}
+                Already have an account?
+              </p>
+
+              <Link
+                className="underline  text-[15px] text-[blue]"
+                to={"/auth/login"}
+              >
                 signIn
               </Link>
-            </p>
-          </div>
+            </div>
+          </form>
         </div>
       </div>
     </div>

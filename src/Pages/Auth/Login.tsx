@@ -1,35 +1,64 @@
 // import React from "react";
+import { useState } from "react";
+import { logInUser } from "../../API/userApi";
+import { useNavigate } from "react-router-dom";
+import toast, { Toaster } from "react-hot-toast";
 
 const Login = () => {
+  const navigate = useNavigate();
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
+  // const [showPassword, setShowPassword] = useState<boolean>(false);
+  // const togglePassword = () => setShowPassword(!showPassword);
+
+  const handleSubmit = (e: any) => {
+    setLoading(true);
+    e.preventDefault();
+
+    logInUser({ email, password }).then((res) => {
+      if (res.status === 201) {
+        navigate("/auth/login");
+      } else {
+        toast.error("Error");
+      }
+    });
+  };
   return (
     <div>
-      <div className="xl:w-full xl:h-screen  bg-[#011B33] justify-center flex flex-col  gap-3 items-center">
-        <div></div>
-        <div className="lg:w-[30%]  lg:h-[55%]  md:h-full md:w-full sm:flex sm:justify-center sm:items-center  bg-[white] rounded-md justify-center flex items-center ">
+      <Toaster />
+      <div className="w-full h-screen  bg-[#011B33] justify-center flex flex-col  gap-3 items-center">
+        <div className="w-[90%] h-[40%] sm:w-[30%] sm:h-[55%] bg-[white] rounded-md justify-center flex items-center ">
           <div className="w-[90%] h-[80%]   bg-white text-center">
-            <div className="text-[13px] font-medium">
-              SIGN IN TO YOUR ACCOUNT
-            </div>
+            <div className="text-[20px] font-bold">SIGN IN TO YOUR ACCOUNT</div>
             <div>
               <input
-                placeholder="Email Address"
-                className="border w-[90%] h-[35px] mt-7 outline-none bg-gray-100"
+                placeholder="Email"
+                className="border w-[90%] rounded-[10px] h-[35px] p-2 mt-7 text-[15px] sm:text-[15px] outline-none bg-gray-100"
                 type="text"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
               />
               <input
                 placeholder="password"
-                className="border w-[90%]  h-[35px] mt-5 outline-none bg-gray-100"
+                className="border w-[90%] p-2 h-[35px] rounded-[10px] text-[15px] sm:text-[15px] mt-5 outline-none bg-gray-100"
                 type="text"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
               />
             </div>
-            <button className="border rounded-md w-[90%] h-[35px] mt-7 bg-green-400 text-[13px]  text-white">
-              SIGN IN
+            <button
+              disabled={loading}
+              type="submit"
+              className={`${
+                loading
+                  ? "bg-green-700 cursor-not-allowed animate-pulse text-white border rounded-md px-[120px] py-[4px] "
+                  : "border rounded-md w-[95%]  justify-center h-[35px] sm:p-[10px] flex items-center mt-3 bg-green-400 text-[15px] font-bold  text-white"
+              }`}
+              onClick={handleSubmit}
+            >
+              {loading ? `loading` : `Sign Up`}
             </button>
-            <div>
-              <a className="text-[13px] text-[blue] underline" href="">
-                Login with passkeys
-              </a>
-            </div>
           </div>
         </div>
       </div>
