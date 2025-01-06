@@ -21,11 +21,13 @@ export const logInUser = async (data: any) => {
     return error;
   }
 };
-export const verifyUser = async (userID: any) => {
+export const verifyUser = async (userID: any, otp: string) => {
   try {
-    return await axios.post(`${URL}/api/verifyUser/${userID}`).then((res) => {
-      return res.data;
-    });
+    return await axios
+      .post(`${URL}/api/verifyUser/${userID}`, { otp })
+      .then((res) => {
+        return res.data;
+      });
   } catch (error) {
     return error;
   }

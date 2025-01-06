@@ -6,6 +6,7 @@ import Homescreen from "../Pages/Home/Homescreen";
 import Otp from "../Pages/Auth/Otp";
 import PrivateRoute from "./PrivateRouter";
 import Layout from "../Layout/Layout";
+import Notification from "../Pages/Auth/Notification";
 
 export const router = createBrowserRouter([
   {
@@ -17,14 +18,19 @@ export const router = createBrowserRouter([
         element: <Register />,
       },
       {
-        index: true,
+        // index: true,
         path: "login",
         element: <Login />,
       },
       {
-        index: true,
-        path: "otp",
+        // index: true,
+        path: "otp/:id",
         element: <Otp />,
+      },
+      {
+        // index: true,
+        path: "notification",
+        element: <Notification />,
       },
     ],
   },

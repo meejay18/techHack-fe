@@ -2,23 +2,30 @@
 
 import { useState } from "react";
 import { verifyUser } from "../../API/userApi";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import toast from "react-hot-toast";
 
 const Otp = () => {
-  const navigate = useNavigate();
   const [otp, setOtp] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
+  const { id } = useParams();
+  const navigate = useNavigate();
 
   const handleSubmit = (e: any) => {
-    setLoading(true);
     e.preventDefault();
+    setLoading(true);
 
-    verifyUser({ otp }).then((res) => {
+    if (!id) {
+      toast.error("userID not found");
+      setLoading(false);
+      return;
+    }
+
+    verifyUser(id, otp).then((res) => {
       if (res.status === 201) {
         navigate("/auth/login");
       } else {
-        return toast.error("Otp not correct");
+        return toast.error("Error verifying user");
       }
     });
   };
@@ -27,7 +34,13 @@ const Otp = () => {
       <div>
         <div className="w-full h-screen bg-[#011B33] justify-center flex flex-col  gap-3 items-center">
           <div className=" w-[100%] h-[40%] sm:w-[30%] sm:h-[60%]  rounded-md justify-center flex items-center ">
-            <div className="w-[90%] h-[80%] p-2 flex flex-col gap-[20px]  rounded-md bg-white text-center">
+            <form
+              onSubmit={handleSubmit}
+              className="w-[90%] h-[80%] p-2 flex flex-col gap-[20px]  rounded-md bg-white text-center"
+            >
+              {loading && (
+                <div className="absolute top-0 left-0 w-full h-full bg-black opacity-50 z-50 cursor-not-allowed "></div>
+              )}
               <div className="text-[15px] font-medium">
                 A one time password was sent to your email, Enter the code below
                 to complete your verification.
@@ -55,7 +68,7 @@ const Otp = () => {
                   {loading ? `Verifying` : `Verify`}
                 </button>
               </div>
-            </div>
+            </form>
           </div>
         </div>
       </div>
