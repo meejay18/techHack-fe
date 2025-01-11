@@ -24,7 +24,7 @@ const Login = () => {
     logInUser({ email, password })
       .then((res) => {
         if (res.status === 201) {
-          console.log(res.data!);
+          // console.log(res.data!);
 
           const getID: any = jwtDecode(res.data!);
           setUser(getID?.id);
